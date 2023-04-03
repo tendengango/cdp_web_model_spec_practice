@@ -21,16 +21,16 @@ RSpec.describe Task, type: :model do
     end
 
     it "La validation d'une tâche n'est pas valide si la date limite d'achèvement est une date antérieure." do
-      task = Task.new(title: "test", description: "test", status: :todo )
-      expect(task.deadline).to be < Date.current
-      expect(task.errors.full_messages).to eq ["Deadline should be grater"]
+      task = Task.new(title: "test", description: "test", status: 0, deadline: '2023/1/1').save
+      expect(task).to eq(false)
+      #expect(task.errors.full_messages).to eq ["Deadline should be grater"]
 
     end
 
-    #it "La validation de la tâche est valide si la date limite d'achèvement est la date du jour." do
-      #task = Task.new(title: "test", description: "test", status: :todo, deadline: must_start_from_today)
-      #expect(task).to be_invalid
+    it "La validation de la tâche est valide si la date limite d'achèvement est la date du jour." do
+      task = Task.new(title: "test", description: "test", status: 1, deadline: '2023/4/3').save
+      expect(task).to eq(true)
       #expect(task.errors.full_messages).to eq ["Deadline should be grater"]
-    #end
+    end
   end
 end
